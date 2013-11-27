@@ -40,7 +40,7 @@ public class PlayActivity extends Activity{
 					};
 					
 					leTimer.schedule(tt, timeTot);
-					timeTot+=task.time;
+					timeTot+=task.getTime();
 				}
 			}
 		});
