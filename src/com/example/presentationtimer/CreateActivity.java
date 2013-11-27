@@ -48,7 +48,7 @@ public class CreateActivity extends Activity{
 				// TODO Auto-generated method stub
 				Task task=new Task();
 				task.name=nameEdit.getText().toString();
-				task.time=timeEdit.getText().toString();
+				task.time=Long.parseLong(timeEdit.getText().toString());
 				tasks.add(task);
 				TaskAdapter adapter=new TaskAdapter(v.getContext(), R.layout.task_list_item, tasks);
 				taskList.setAdapter(adapter);
