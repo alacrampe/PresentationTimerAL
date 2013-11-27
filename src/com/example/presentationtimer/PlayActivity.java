@@ -9,12 +9,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class PlayActivity extends Activity{
 	
 	public Timer leTimer;
 	public ArrayList<Task> list;
 	public ProgressBar pb;
+	public TextView nameTV;
 	public Button startButton;
 	public long timeTot;
 	
@@ -23,6 +25,8 @@ public class PlayActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.activity_play);
 		leTimer=new Timer(true);
+		
+		nameTV=(TextView) this.findViewById(R.id.name);
 		
 		this.pb=(ProgressBar) this.findViewById(R.id.progressBar1);
 		
@@ -33,9 +37,9 @@ public class PlayActivity extends Activity{
 			{
 				for(Task task : list)
 				{
-					TimerTask tt=new TimerTask(){
+					PresentationTimerTask tt=new PresentationTimerTask(task.getName()){
 						public void run(){
-							
+							nameTV.setText(this.person);
 						}
 					};
 					
