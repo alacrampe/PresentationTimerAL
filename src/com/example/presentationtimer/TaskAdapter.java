@@ -45,8 +45,10 @@ public class TaskAdapter extends ArrayAdapter<Task>{
 			}
 			
 			Task task=data.get(position);
-			holder.name.setText(task.name);
-			holder.time.setText(""+task.time);
+
+			holder.name.setText(task.getName());
+			holder.time.setText(""+task.getTime());
+
 			
 			return row;
 		}
