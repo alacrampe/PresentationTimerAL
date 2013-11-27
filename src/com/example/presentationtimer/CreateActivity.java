@@ -51,7 +51,7 @@ public class CreateActivity extends Activity{
 				Task task=new Task();
 
 				task.setName(nameEdit.getText().toString());
-				task.setTime(Long.parseLong(timeEdit.getText().toString()));
+				task.setTime(Integer.parseInt(timeEdit.getText().toString()));
 
 				tasks.add(task);
 				TaskAdapter adapter=new TaskAdapter(v.getContext(), R.layout.task_list_item, tasks);

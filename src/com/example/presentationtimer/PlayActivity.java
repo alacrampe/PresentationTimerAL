@@ -15,10 +15,11 @@ public class PlayActivity extends Activity{
 	
 	public Timer leTimer;
 	public ArrayList<Task> list;
-	public ProgressBar pb;
+	public ProgressBar ppb;
+	public ProgressBar tpb;
 	public TextView nameTV;
 	public Button startButton;
-	public long timeTot;
+	public int timeTot;
 	
 	public void onCreate(Bundle savedInstanceState, int id)
 	{
@@ -29,24 +30,48 @@ public class PlayActivity extends Activity{
 		
 		nameTV=(TextView) this.findViewById(R.id.name);
 		
-		this.pb=(ProgressBar) this.findViewById(R.id.progressBar1);
+		this.ppb=(ProgressBar) this.findViewById(R.id.presentationProgressBar);
+		this.tpb=(ProgressBar) this.findViewById(R.id.taskProgressBar);
 		
 		startButton=(Button) this.findViewById(R.id.StartButton);
+		
+		
+		
+		
 		
 		startButton.setOnClickListener(new View.OnClickListener(){
 			public void onClick(View v)
 			{
 				for(Task task : list)
 				{
-					PresentationTimerTask tt=new PresentationTimerTask(task.getName()){
+					PresentationTimerTask tt=new PresentationTimerTask(task.getName(), task.getTime()){
 						public void run(){
 							nameTV.setText(this.person);
+							
+							TimerTask tt=new PresentationTimerTask(null, this.time){
+								public void run(){
+									int percentage= (int) 100/this.time;
+									tpb.setProgress(percentage);
+								}
+							};
+							leTimer.scheduleAtFixedRate(tt, 0, this.time);
 						}
 					};
 					
 					leTimer.schedule(tt, timeTot);
 					timeTot+=task.getTime();
 				}
+				
+				
+				TimerTask ppbTask=new TimerTask(){
+					public void run()
+					{
+						int percentage= (int) 100/timeTot;
+						ppb.setProgress(percentage);
+					}
+				};
+				
+				leTimer.scheduleAtFixedRate(ppbTask, 0, timeTot);
 			}
 		});
 		

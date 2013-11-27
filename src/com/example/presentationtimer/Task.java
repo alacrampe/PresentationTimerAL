@@ -23,10 +23,10 @@ public class Task {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public long getTime() {
+	public int getTime() {
 		return time;
 	}
-	public void setTime(long time) {
+	public void setTime(int time) {
 		this.time = time;
 	}
 	public int getPersonid() {
@@ -43,7 +43,7 @@ public class Task {
 	}
 	private long id;
 	private String name;
-	private long time;
+	private int time;
 
 	private int personid;
 	private int presentationid;
