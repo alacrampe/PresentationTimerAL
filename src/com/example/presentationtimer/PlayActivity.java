@@ -13,15 +13,16 @@ import android.widget.ProgressBar;
 public class PlayActivity extends Activity{
 	
 	public Timer leTimer;
-	public ArrayList<TimerTask> list;
+	public ArrayList<Task> list;
 	public ProgressBar pb;
 	public Button startButton;
+	public long timeTot;
 	
 	public void onCreate(Bundle savedInstanceState, int id)
 	{
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.activity_play);
-		leTimer=new Timer();
+		leTimer=new Timer(true);
 		
 		this.pb=(ProgressBar) this.findViewById(R.id.progressBar1);
 		
@@ -30,12 +31,20 @@ public class PlayActivity extends Activity{
 		startButton.setOnClickListener(new View.OnClickListener(){
 			public void onClick(View v)
 			{
-				for(TimerTask tt : list)
+				for(Task task : list)
 				{
+					TimerTask tt=new TimerTask(){
+						public void run(){
+							
+						}
+					};
 					
+					leTimer.schedule(tt, timeTot);
+					timeTot+=task.getTime();
 				}
 			}
 		});
+		
 		
 	}
 	
