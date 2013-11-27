@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.TimerTask;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class CreateActivity extends Activity{
 	
@@ -66,12 +68,39 @@ public class CreateActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+				String s=sauvegardeTask();
+				Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+				Intent intent=new Intent(CreateActivity.this,MainActivity.class);
+				startActivity(intent);
 			}
+
+			
 		});
 		
 		
+	}
+	
+	private String sauvegardeTask() {
+		// TODO Auto-generated method stub
+		String s="tache enregistrée";
+		SQLiteBaseTimerTasks sql=new SQLiteBaseTimerTasks(this);
 		
+		Presentation ppt=new Presentation(1,"Projet");
+		
+		Person p1=new Person(1,"Dude1");
+		Person p2=new Person(2,"Dude2");
+		
+		
+		TaskDAO tDAO=new TaskDAO();
+		Task t1=new Task(1,"Truc1", 60, 1, 1);
+		Task t2=new Task(2,"Truc2", 60, 2, 1);
+		
+		tDAO.open(sql);
+		tDAO.create(t1);
+		tDAO.create(t2);
+		tDAO.close();
+		
+		return s;
 		
 	}
 }

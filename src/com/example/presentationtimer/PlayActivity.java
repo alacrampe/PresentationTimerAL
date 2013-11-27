@@ -26,6 +26,7 @@ public class PlayActivity extends Activity{
 		this.setContentView(R.layout.activity_play);
 		leTimer=new Timer(true);
 		
+		
 		nameTV=(TextView) this.findViewById(R.id.name);
 		
 		this.pb=(ProgressBar) this.findViewById(R.id.progressBar1);
