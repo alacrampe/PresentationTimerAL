@@ -9,5 +9,7 @@
     <string name="create_create">Create</string>
     <string name="create_name">Name</string>
     <string name="create_time">time</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 
 </resources>
