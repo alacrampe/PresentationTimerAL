@@ -12,5 +12,6 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="create_presentation">Create Presentation</string>
+    <string name="back">Back</string>
 
 </resources>
