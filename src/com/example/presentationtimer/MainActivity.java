@@ -17,7 +17,16 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		
+		Button button=(Button)this.findViewById(R.id.button1);
+		button.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent=new Intent(MainActivity.this,PlayActivity.class);
+				startActivity(intent);
+			}
+		});
 		
 	}
 
