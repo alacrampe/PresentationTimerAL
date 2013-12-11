@@ -5,5 +5,6 @@
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/action_settings"/>
+    <item android:id="@+id/createButton" android:visible="false" android:menuCategory="system" android:title="@string/create_presentation" android:showAsAction="always"></item>
 
 </menu>
