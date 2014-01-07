@@ -6,6 +6,7 @@ import java.util.TimerTask;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,13 +23,19 @@ public class PlayActivity extends Activity{
 	public TextView nameTV;
 	public Button startButton;
 	public int timeTot;
+	public Handler handler;
+	
+	public int elapsedTimeP;
+	public int elapsedTimeT;
 	
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.activity_play);
 		
-		leTimer=new Timer(true);
+		//leTimer=new Timer(true);
+		
+		handler=new Handler();
 		
 		nameTV=(TextView) this.findViewById(R.id.name);
 		
@@ -50,13 +57,13 @@ public class PlayActivity extends Activity{
 				
 				for(Task task : list)
 				{
-					PresentationTimerTask tt=new PresentationTimerTask(task.getName(), task.getTime()){
+					/*PresentationTimerTask tt=new PresentationTimerTask(task.getName(), task.getTime()){
 						public void run(){
 							nameTV.setText(this.person);
 							
 							TimerTask tt=new PresentationTimerTask(null, (this.time*1000)){
 								public void run(){
-									int percentage= (int) 100/(this.time*1000);
+									int percentage= (int) Math.round(100/(this.time*1000));
 									tpb.setProgress(percentage);
 								}
 							};
@@ -65,19 +72,59 @@ public class PlayActivity extends Activity{
 					};
 					
 					leTimer.schedule(tt, timeTot);
+					*/
+					
+					Runnable elapsedTime=new Runnable()
+					{
+						public void run()
+						{
+							elapsedTimeT+=1;
+							elapsedTimeP+=1;
+							
+							handler.postDelayed(this, 1000);
+						}
+					};
+					
+					Runnable resetElapsedTime=new TaskRunnable(task.getName(), task.getTime())
+					{
+						public void run()
+						{
+							elapsedTimeT=0;
+							nameTV.setText(this.person);
+						}
+					};
+					
+					Runnable taskProgress=new TaskRunnable(task.getName(), task.getTime()){
+						public void run()
+						{
+							
+							int percentage=(this.time/elapsedTimeT);
+							tpb.setProgress(percentage);
+							handler.postDelayed(this, 1000);
+						}
+					};
+					
+					handler.postDelayed(elapsedTime, 1000);
+					handler.postDelayed(resetElapsedTime, timeTot);
+					handler.postDelayed(taskProgress, 1000+timeTot);
+					
 					timeTot+=task.getTime()*1000;
+					
 				}
 				
-				timeTot=50000;
-				TimerTask ppbTask=new TimerTask(){
+				
+				Runnable ppbTask=new Runnable(){
 					public void run()
 					{
-						int percentage= (int) 100/timeTot;
+						int percentage= (timeTot/1000)/elapsedTimeP;
 						ppb.setProgress(percentage);
+						
+						handler.postDelayed(this, 1000);
+						
 					}
 				};
 				
-				leTimer.scheduleAtFixedRate(ppbTask, 0, timeTot);
+				handler.postDelayed(ppbTask, 1000);
 				
 			}
 		});
